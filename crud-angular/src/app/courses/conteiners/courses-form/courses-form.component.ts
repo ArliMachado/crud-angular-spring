@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
 import { CoursesService } from '../../services/courses.service';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-courses-form',
@@ -15,6 +17,7 @@ import { CoursesService } from '../../services/courses.service';
 })
 export class CoursesFormComponent {
   form = this.formBuilder.group({
+    _id: [''],
     name: ['',],
     category: ['']
   });
@@ -23,8 +26,16 @@ export class CoursesFormComponent {
     private formBuilder: NonNullableFormBuilder,
     private service: CoursesService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {
+
+    const course: Course = this.route.snapshot.data['course'];
+    this.form.setValue({
+      _id: course._id,
+      name: course.name,
+      category: course.category
+    })
 
   }
 
