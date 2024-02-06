@@ -1,5 +1,7 @@
 package com.alm.crudspring;
 
+import com.alm.crudspring.enums.Category;
+import com.alm.crudspring.model.Lesson;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +25,19 @@ public class CrudSpringApplication {
 			Course c = new Course();
 
 			c.setName("Angular com Spring");
-			c.setCategory("Front-end");
+			c.setCategory(Category.FRONT_END);
+
+			Lesson lesson = new Lesson();
+			lesson.setName("Introdução");
+			lesson.setYoutubeUrl("wfsdfsdf");
+			lesson.setCourse(c);
+			c.getLessons().add(lesson);
+
+			Lesson lesson2 = new Lesson();
+			lesson2.setName("Angular");
+			lesson2.setYoutubeUrl("wdddasd");
+			lesson2.setCourse(c);
+			c.getLessons().add(lesson2);
 
 			courseRepository.save(c);
 
