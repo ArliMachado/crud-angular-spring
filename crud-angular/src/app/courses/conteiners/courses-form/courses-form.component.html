@@ -9,23 +9,67 @@
         <input matInput formControlName="name" #name>
         <mat-hint align="end">{{name.value.length}}/100</mat-hint>
         @if (form.get('name')?.invalid) {
-        <mat-error>{{getErrorMessage("name")}}</mat-error>
+        <mat-error>{{formUtils.getErrorMessage(form, "name")}}</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Categoria</mat-label>
         <mat-select formControlName="category">
-          <mat-option value=""> </mat-option>
           <mat-option value="Front-end">Front-End</mat-option>
           <mat-option value="Back-end">Back-End</mat-option>
         </mat-select>
 
         @if (form.get('category')?.invalid) {
-        <mat-error>{{getErrorMessage("category")}}</mat-error>
-        }
+          <mat-error>{{formUtils.getErrorMessage(form, "category")}}</mat-error>
+          }
+
       </mat-form-field>
 
+      <mat-toolbar>
+        <span>Aulas</span>
+        <button mat-icon-button color="accent" (click)="addNewLesson()">
+          <mat-icon aria-label="Adicionar uma nova aula">add</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      @if (formUtils.isFormArrayRequired(form, 'lessons')) {
+        <mat-error class="form-array-error">Adicione pelo menos uma aula</mat-error>
+        }
+
+
+      @for (lesson of getLessonsFormArray(); track lesson; let i = $index) {
+
+      <table style="width: 100%"
+      formArrayName="lessons">
+        <tr [formGroupName]="i">
+          <td style="width: 65%;">
+            <mat-form-field class="full-width">
+              <mat-label>Nome da Aula</mat-label>
+              <input matInput formControlName="name" />
+              @if (getLessonsFormArray()[i].get('name')?.invalid) {
+                <mat-error>{{formUtils.getFormArrayfieldErrorMessage(form, 'lessons', 'name', i)}}</mat-error>
+                }
+            </mat-form-field>
+          </td>
+          <td style="width: 30%;">
+            <mat-form-field class="full-width">
+              <mat-label>URL</mat-label>
+              <span matTextPrefix>https://youtu.be/</span>
+              <input matInput formControlName="youtubeUrl" />
+              @if (getLessonsFormArray()[i].get('youtubeUrl')?.invalid) {
+                <mat-error>{{formUtils.getFormArrayfieldErrorMessage(form, 'lessons', 'youtubeUrl', i)}}</mat-error>
+                }
+            </mat-form-field>
+          </td>
+          <td>
+            <button mat-icon-button color="warn" (click)="removeLesson(i)">
+              <mat-icon aria-label="Remover aula">delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    }
     </form>
   </mat-card-content>
 

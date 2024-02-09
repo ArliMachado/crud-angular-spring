@@ -4,9 +4,12 @@ import com.alm.crudspring.dto.CourseDTO;
 import com.alm.crudspring.dto.LessonDTO;
 import com.alm.crudspring.enums.Category;
 import com.alm.crudspring.model.Course;
+import com.alm.crudspring.model.Lesson;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CourseMapper {
@@ -35,6 +38,18 @@ public class CourseMapper {
 
     course.setName(courseDTO.name());
     course.setCategory(convertCategoryValue(courseDTO.category()));
+
+    List<Lesson> lessons = courseDTO.lessons().stream().map(lessonDTO -> {
+      var lesson = new Lesson();
+      lesson.setId(lessonDTO.id());
+      lesson.setName(lessonDTO.name());
+      lesson.setYoutubeUrl(lessonDTO.youtubeUrl());
+      lesson.setCourse(course);
+      return lesson;
+    }).collect(Collectors.toList());
+
+    course.setLessons(lessons);
+
     return course;
   }
 
