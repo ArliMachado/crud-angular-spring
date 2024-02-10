@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Course } from '../model/course';
 import { HttpClient } from '@angular/common/http';
-import { catchError, delay, first, of } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { first } from 'rxjs';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
+import { Course } from '../model/course';
+import { CoursePage } from '../model/course-page';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +19,17 @@ export class CoursesService {
     public dialog: MatDialog
   ) {}
 
-  list() {
-    return this.httpClient.get<Course[]>(this.API)
+  list(page = 0, pagesize = 10) {
+    return this.httpClient.get<CoursePage>(this.API, {
+      params: {
+        page,
+        pageSize: pagesize
+      }
+
+    })
       .pipe(
-        catchError(error => {
-          this.onError('Error ao carregar cursos');
-          return of([])
-        }
-        )
-      )
+        first(),
+      );
   }
 
   loadById(id: string) {
