@@ -1,25 +1,28 @@
-import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AsyncPipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, catchError, of, tap } from 'rxjs';
-
-
-import { Course } from '../../model/course';
-import { CoursesService } from '../../services/courses.service';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, Observable, of, tap } from 'rxjs';
+
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { Course } from '../../model/course';
 import { CoursePage } from '../../model/course-page';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CoursesService } from '../../services/courses.service';
+
 
 @Component({
   selector: 'app-courses',
-  standalone: true,
-  imports: [CommonModule, CoursesListComponent],
   templateUrl: './courses.component.html',
-  styleUrl: './courses.component.scss'
+  styleUrls: ['./courses.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, MatToolbarModule, CoursesListComponent, MatPaginatorModule, MatProgressSpinnerModule, AsyncPipe],
 })
 
 export class CoursesComponent {
