@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+
 import { CoursesService } from '../../services/courses.service';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from '../../model/course';
@@ -13,7 +13,7 @@ import { FormUtilsService } from '../../../shared/form/form-utils.service';
 @Component({
   selector: 'app-courses-form',
   standalone: true,
-  imports: [AppMaterialModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './courses-form.component.html',
   styleUrl: './courses-form.component.scss'
 })

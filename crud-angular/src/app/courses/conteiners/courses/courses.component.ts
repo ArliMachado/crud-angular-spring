@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { Observable, catchError, of, tap } from 'rxjs';
 
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [AppMaterialModule, CommonModule, CoursesListComponent],
+  imports: [CommonModule, CoursesListComponent],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })

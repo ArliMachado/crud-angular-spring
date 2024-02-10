@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+
 import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-courses-list',
   standalone: true,
-  imports: [AppMaterialModule],
+  imports: [],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.scss'
 })
